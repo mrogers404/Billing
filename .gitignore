@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -27,3 +28,9 @@ hs_err_pid*
 .project
 .settings/
 target/
+=======
+target/
+/.classpath
+/.project
+/.settings/
+>>>>>>> 949538e34599ee1f6f9a87b1ab8155984159ca97
