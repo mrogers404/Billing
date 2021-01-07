@@ -25,6 +25,7 @@ public class ParserFactory {
 		parsers.put(Parser.Format.CSV, CSVParser::new);
 		parsers.put(Parser.Format.FLAT, FlatParser::new);
 		parsers.put(Parser.Format.DEFAULT, CSVParser::new);
+		parsers.compute(Parser.Format.EXPORT, ExportParser::new);
 	}
 
 	/**
@@ -33,10 +34,16 @@ public class ParserFactory {
 	 */
 	public static Parser createParser(String filename) {
 		int separatorIndex = filename.indexOf(".");
+		String type;
 		if (separatorIndex != -1) {
-			String extension = filename.substring(separatorIndex + 1);
+			String extension = "needs fixed"; //TODO throw real error
+			type = filename.substring(separatorIndex + 1);
+			if(filename.toLowerCase().contains("_export"))// contains _export
+			{
+				type = "EXPORT";
+			}
 			for (Parser.Format format : Parser.Format.values()) {
-				if (format.toString().equalsIgnoreCase(extension)) {
+				if (format.toString().equalsIgnoreCase(type)) {
 					return createParser(format);
 				}
 			}

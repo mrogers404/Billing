@@ -16,7 +16,7 @@ import com.amica.billing.Invoice;
  */
 public interface Parser {
 	
-	enum Format { CSV, FLAT, DEFAULT }
+	enum Format { CSV, FLAT, DEFAULT, EXPORT }
 
 	/**
 	 * Returns a stream of {@link Customer}s, one for each text representation. 
