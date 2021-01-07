@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,7 +26,7 @@ public class AddCustomer {
 	
 	public static void main(String[] args) {
 		AddCustomer addCustomer = new AddCustomer();
-		addCustomer.payInvoice(106);
+		addCustomer.payInvoice(107);
 	}
 	
 	public void writeCSV(String outputFile, Customer newCustomer) {
@@ -78,7 +79,7 @@ public class AddCustomer {
 			invoices.forEach(x ->
 			{
 				try {
-					csvPrinter.printRecord(x.getNumber(), x.getCustomer().getFirstName(), x.getCustomer().getLastName(), x.getAmount(), x.getTheDate(), x.getPaidDate());
+					csvPrinter.printRecord(x.getNumber(), x.getCustomer().getFirstName(), x.getCustomer().getLastName(), x.getAmount(), x.getTheDate(), Objects.isNull(x.getPaidDate()) ? "NULL" : x.getPaidDate());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
