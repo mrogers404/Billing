@@ -25,7 +25,7 @@ public class ParserFactory {
 		parsers.put(Parser.Format.CSV, CSVParser::new);
 		parsers.put(Parser.Format.FLAT, FlatParser::new);
 		parsers.put(Parser.Format.DEFAULT, CSVParser::new);
-		parsers.compute(Parser.Format.EXPORT, ExportParser::new);
+//		parsers.compute(Parser.Format.EXPORT, ExportParser::new);
 	}
 
 	/**

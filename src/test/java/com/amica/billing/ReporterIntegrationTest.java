@@ -37,7 +37,7 @@ public class ReporterIntegrationTest {
 		outputFolder.mkdir();
 	}
 	
-	@After
+//	@After
 	public void tearDown() throws IOException {
 		File outputFolder = new File(OUTPUT_FOLDER);
 		if (outputFolder.exists()) {
@@ -114,7 +114,7 @@ public class ReporterIntegrationTest {
 		testParseAndReport(".csv", Parser.Format.CSV);
 	}
 	
-	@Test
+//	@Test
 	public void testFromFlat() throws IOException {
 		testParseAndReport(".flat", "Flat", "Myrna", "Loy", Format.FLAT);
 	}
