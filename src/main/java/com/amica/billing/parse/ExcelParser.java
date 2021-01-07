@@ -118,21 +118,15 @@ public class ExcelParser implements Parser {
 			for (CSVRecord record : csvParser) {
 				customers.add(new Customer(record.get(0), record.get(1), Terms.CASH));
 			}
-			log.info(customers.toString());
+			log.info(customers.get(0).getTerms().toString());
 
-			return new BufferedReader(customerReader).lines()
-					.map(this::parseCustomer)
-					.filter(customer -> customer != null);
-		
-
+			return customers.stream();
+	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-
-		return new BufferedReader(customerReader).lines()
-				.map(this::parseCustomer)
-				.filter(customer -> customer != null);
 		
 	}
 
