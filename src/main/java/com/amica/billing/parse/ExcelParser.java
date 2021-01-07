@@ -43,26 +43,11 @@ public class ExcelParser implements Parser {
 	 * Helper that can parse one line of comma-separated text in order to
 	 * produce a {@link Customer} object.
 	 */
-	private Customer parseCustomer(String line) {
-		String[] fields = line.split(",");
-		if (fields.length == CUSTOMER_COLUMNS) {
-			try {
-				String termsField = fields[CUSTOMER_TERMS_COLUMN];
-				Terms terms = termsField.equals(Terms.CASH.toString()) 
-						? Terms.CASH
-						: Terms.fromDays(Integer.parseInt(termsField));
-				return new Customer(fields[CUSTOMER_FIRST_NAME_COLUMN], 
-						fields[CUSTOMER_LAST_NAME_COLUMN], terms);
-			} catch (Exception ex) {
-				log.warning(() -> 
-					"Couldn't parse terms value, skipping customer: "+ line);
-			}
-		} else {
-			log.warning(() -> 
-				"Incorrect number of fields, skipping customer: " + line);
-		}
-		
-		return null;
+	private Customer parseCustomer(CSVRecord record) {
+		Terms terms = record.get(2).equals(Terms.CASH.toString()) 
+				? Terms.CASH
+				: Terms.valueOf(record.get(2));
+		return new Customer(record.get(0), record.get(1), terms);
 	}
 
 	/**
@@ -111,23 +96,18 @@ public class ExcelParser implements Parser {
 	 * @throws IOException 
 	 */
 	public Stream<Customer> parseCustomers(Reader customerReader) {
-
 		try {
 			ArrayList<Customer> customers = new ArrayList<>();
 			org.apache.commons.csv.CSVParser csvParser = CSVFormat.DEFAULT.parse(customerReader);
 			for (CSVRecord record : csvParser) {
-				customers.add(new Customer(record.get(0), record.get(1), Terms.CASH));
+				customers.add(parseCustomer(record));
 			}
-			log.info(customers.get(0).getTerms().toString());
-
 			return customers.stream();
-	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 
 	/**
