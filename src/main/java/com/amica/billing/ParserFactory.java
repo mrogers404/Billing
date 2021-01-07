@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.amica.billing.parse.CSVParser;
+import com.amica.billing.parse.ExportParser;
 import com.amica.billing.parse.FlatParser;
 import com.amica.billing.parse.Parser;
 
@@ -25,7 +26,7 @@ public class ParserFactory {
 		parsers.put(Parser.Format.CSV, CSVParser::new);
 		parsers.put(Parser.Format.FLAT, FlatParser::new);
 		parsers.put(Parser.Format.DEFAULT, CSVParser::new);
-		parsers.compute(Parser.Format.EXPORT, ExportParser::new);
+		parsers.put(Parser.Format.EXPORT, ExportParser::new);
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class ParserFactory {
 		if (separatorIndex != -1) {
 			String extension = "needs fixed"; //TODO throw real error
 			type = filename.substring(separatorIndex + 1);
-			if(filename.toLowerCase().contains("_export"))// contains _export
+			if(filename.toLowerCase().contains("_export"))
 			{
 				type = "EXPORT";
 			}
