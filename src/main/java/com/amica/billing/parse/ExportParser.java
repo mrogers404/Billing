@@ -16,9 +16,10 @@ import lombok.extern.java.Log;
 
 public class ExportParser implements Parser {
 	
-	public void main() {
+	public static void main(String[] args) {
 		try {
-			parseCustomers(new FileReader("src/test/resources/data/customers_export.csv"));
+			ExportParser exparser = new ExportParser();
+			exparser.parseCustomers(new FileReader("src/test/resources/data/customers_export.csv"));
 		} catch (Exception e) {
 			System.out.print(e);
 		}		
