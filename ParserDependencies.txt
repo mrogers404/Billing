@@ -1,0 +1,35 @@
+The Apache CSV parser/printer:
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.8</version>
+    </dependency>
+
+Try this:
+
+	CSVParser parser = CSVFormat.DEFAULT
+			.withQuote("'")
+			.withQuoteMode(QuoteMode.ALL)
+			.withNullString("null")
+			.parse(someReader);
+
+See the users' guide for ore:
+	https://commons.apache.org/proper/commons-csv/user-guide.html
+
+------------------------------------------------------
+
+The Jackson JSON parser/serializer:
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.8</version>
+    </dependency>
+
+Try this:
+
+	ObjectMapper mapper = new ObjectMapper();
+	Customer customer = mapper.readValue(someReader, Customer.class);
+	Customer[] customers = mapper.readValue(someReader, Customer[].class);
+
